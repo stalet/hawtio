@@ -1,0 +1,11 @@
+app/*.js
+app/**/*.js
+node_modules
+libs
+js/app.js
+d.ts/hawtio-core.d.ts
+d.ts/hawtio-core.d.ts.map
+.tmp
+release
+dist/*
+definitions/*
