@@ -4,15 +4,15 @@
 
 (use sudo for any global install as needed)
 
-* `npm install -g gulp`
-
-* `npm install -g bower`
+* `npm install -g gulp bower karma`
 
 * `npm install`
 
 * `bower install`
 
 ### run the app:
+
+* export PHANTOMJS_BIN=node_modules/phantomjs/bin/phantomjs
 
 * `gulp`
 
