@@ -16,6 +16,7 @@
 
 * `gulp`
 
+* open: <http://localhost:2772>
 
 ### Add a js dependency:
 
