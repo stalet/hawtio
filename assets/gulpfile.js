@@ -55,12 +55,18 @@ gulp.task('tsc', function() {
 });
 
 gulp.task('connect', function() {
-    plugins.connect.server({
-      root: config.app,
-      livereload: true,
-      port: 2772,
-      fallback: 'index.html'
-    });
+  plugins.watch(config.ts, function() {
+    gulp.start('tsc');
+  });
+  plugins.watch(config.src, function() {
+    gulp.start('reload');
+  });
+  plugins.connect.server({
+    root: config.app,
+    livereload: true,
+    port: 2772,
+    fallback: 'index.html'
+  });
 });
 
 gulp.task('test', function() {
@@ -72,14 +78,6 @@ gulp.task('test', function() {
 gulp.task('reload', function() {
   gulp.src('.')
     .pipe(plugins.connect.reload());
-});
-
-plugins.watch(config.ts, function() {
-  gulp.start('tsc');
-});
-
-plugins.watch(config.src, function() {
-  gulp.start('reload');
 });
 
 gulp.task('default', ['test', 'tsc', 'connect']);

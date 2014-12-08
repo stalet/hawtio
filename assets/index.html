@@ -13,11 +13,6 @@
 
     <!-- should not be concatenated -->
     <link rel="stylesheet" type="text/css" href="css/vendor.css">
-  </head>
-
-  <body>
-    <div ng-include="'app/nav/html/navbar.html'"></div>
-    <div class="container-fluid" ng-view></div>
 
     <!-- bower:js -->
     <script src="libs/jquery/dist/jquery.js"></script>
@@ -30,6 +25,12 @@
     <script src="libs/sugarjs/release/sugar.min.js"></script>
     <script src="libs/angular-sanitize/angular-sanitize.js"></script>
     <!-- endbower -->
+
+  </head>
+
+  <body>
+    <div ng-include="'app/nav/html/navbar.html'"></div>
+    <div class="container-fluid" ng-view></div>
 
     <script type="text/javascript" src="js/loggingInit.js"></script>
     <script type="text/javascript" src="js/hawtio-plugin-loader.js"></script>
