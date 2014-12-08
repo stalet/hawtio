@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="libs/patternfly/dist/css/patternfly.css" />
     <!-- endbower -->
+
     <link rel="stylesheet" type="text/css" href="css/app.css">
 
     <!-- should not be concatenated -->
@@ -24,11 +25,15 @@
     <script src="libs/lodash/dist/lodash.compat.js"></script>
     <script src="libs/sugarjs/release/sugar.min.js"></script>
     <script src="libs/angular-sanitize/angular-sanitize.js"></script>
+    <script src="libs/webcomponentsjs/webcomponents.js"></script>
+    <script src="libs/angular-bind-polymer/angular_bind_polymer.js"></script>
     <!-- endbower -->
+
 
   </head>
 
   <body>
+      
     <div ng-include="'app/nav/html/navbar.html'"></div>
     <div class="container-fluid" ng-view></div>
 
@@ -39,5 +44,7 @@
 
     <!-- should not be concatenated -->
     <script type="text/javascript" scr="js/vendor.js"></script>
+
+    <link rel="import" href="libs/polymer/polymer.html">
   </body>
 </html>

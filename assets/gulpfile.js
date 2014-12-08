@@ -28,7 +28,9 @@ var tsProject = plugins.typescript.createProject({
 
 gulp.task('bower', function() {
   gulp.src('index.html')
-    .pipe(wiredep({}))
+    .pipe(wiredep({
+      exclude: 'libs/polymer/polymer.js'
+    }))
     .pipe(gulp.dest('.'));
   gulp.src('karma.conf.js')
     .pipe(wiredep({}))

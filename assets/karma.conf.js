@@ -25,6 +25,9 @@ module.exports = function(config) {
       'libs/lodash/dist/lodash.compat.js',
       'libs/sugarjs/release/sugar.min.js',
       'libs/angular-sanitize/angular-sanitize.js',
+      'libs/webcomponentsjs/webcomponents.js',
+      'libs/angular-bind-polymer/angular_bind_polymer.js',
+      'libs/polymer/polymer.js',
       // endbower
       'js/loggingInit.js',
       'js/hawtio-plugin-loader.js',
