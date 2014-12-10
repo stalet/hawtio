@@ -30,7 +30,7 @@ module MainNav {
     context?: boolean;
     title?: () => string;
     href?: () => string;
-    click?: ($event:ng.IAngularEvent) => void;
+    click?: ($event:any) => void;
     isValid?: () => boolean;
     isSelected?: () => boolean;
     template?: () => string;
@@ -44,7 +44,7 @@ module MainNav {
     title(title:() => string):NavItemBuilder;
     context(context:boolean):NavItemBuilder;
     href(href:() => string):NavItemBuilder;
-    click(click:($event:ng.IAngularEvent) => void):NavItemBuilder;
+    click(click:($event:any) => void):NavItemBuilder;
     isValid(isValid:() => boolean):NavItemBuilder;
     isSelected(isSelected:() => boolean):NavItemBuilder;
     template(template:() => string):NavItemBuilder;

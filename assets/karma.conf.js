@@ -26,7 +26,6 @@ module.exports = function(config) {
       'libs/sugarjs/release/sugar.min.js',
       'libs/angular-sanitize/angular-sanitize.js',
       'libs/webcomponentsjs/webcomponents.js',
-      'libs/angular-bind-polymer/angular_bind_polymer.js',
       'libs/polymer/polymer.js',
       // endbower
       'js/loggingInit.js',

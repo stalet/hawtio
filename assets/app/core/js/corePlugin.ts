@@ -27,4 +27,5 @@ module Core {
     docEl.attr('ng-app', Core.pluginName);
   });
 
+
 }

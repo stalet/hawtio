@@ -47,26 +47,11 @@ module UrlHelpers {
    * from the supplied strings if needed, except the first and last string
    * @returns {string}
    */
-  export function join(...paths:string[]) {
-    var tmp = [];
-    var length = paths.length - 1;
-    paths.forEach((path, index) => {
-      if (StringHelpers.isBlank(path)) {
-        return;
-      }
-      if (index !== 0 && path.first(1) === '/') {
-        path = path.slice(1);
-      }
-      if (index !== length && path.last(1) === '/') {
-        path = path.slice(0, path.length - 1);
-      }
-      if (!StringHelpers.isBlank(path)) {
-        tmp.push(path);
-      }
-    });
-    var rc = tmp.join('/');
-    return rc
+  export interface IJoin {
+    (...paths:string[]):string;
+
   }
+  export var join:IJoin;
 
   export var parseQueryString = hawtioPluginLoader.parseQueryString;
 

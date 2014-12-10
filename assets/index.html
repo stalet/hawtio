@@ -15,6 +15,12 @@
     <!-- should not be concatenated -->
     <link rel="stylesheet" type="text/css" href="css/vendor.css">
 
+    <!-- ES6/ES6 shim -->
+    <!--[if IE 8]>
+    <script src="libs/es5-dom-shim/__COMIPLE/a.ie8.js"></script>
+    <![endif]-->
+    <script src="libs/es5-dom-shim/__COMPILE/a.js"></script>
+
     <!-- bower:js -->
     <script src="libs/jquery/dist/jquery.js"></script>
     <script src="libs/angular/angular.js"></script>
@@ -26,15 +32,64 @@
     <script src="libs/sugarjs/release/sugar.min.js"></script>
     <script src="libs/angular-sanitize/angular-sanitize.js"></script>
     <script src="libs/webcomponentsjs/webcomponents.js"></script>
-    <script src="libs/angular-bind-polymer/angular_bind_polymer.js"></script>
     <!-- endbower -->
-
 
   </head>
 
   <body>
-      
-    <div ng-include="'app/nav/html/navbar.html'"></div>
+    <p>
+      <h5>Web Component</h5>
+      <hawtio-nav></hawtio-nav>
+    </p>
+
+    <br>
+    <h5>Angular Directive</h5>
+    <nav class="navbar navbar-default navbar-pf" role="navigation">
+      <script type="text/ng-template" id="nav.html">
+        <li ng-class="{ active: item.isSelected() }">
+          <a ng-href="{{item.href()}}" ng-click="item.click($event)">{{item.title()}}</a>
+          <ul ng-show="item.tabs" class="nav navbar-nav navbar-persistent">
+            <li ng-repeat="tab in item.tabs" ng-class="{ active: tab.isSelected() }">
+              <a ng-href="{{tab.href()}}" ng-click="tab.click($event)">{{tab.title()}}</a>
+            </li>
+          </ul>
+        </li>
+      </script>
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collaps-1">
+          <span class="sr-only">Toggle Navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">
+          <img src="img/hawtio_logo.svg" height="16" alt="hawtio">
+        </a>
+      </div>
+      <div class="collapse navbar-collapse navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-utility">
+        </ul>
+        <ul class="nav navbar-nav navbar-primary persistent-secondary" hawtio-main-nav>
+          <li class="dropdown context">
+            <a href="" class="dropdown-toggle" data-toggle="dropdown">
+              Perspective
+              <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+            </ul>
+          </li>
+          <li class="active">
+            <a href="">Active</a>
+            <ul class="nav navbar-nav navbar-persistent">
+              <li>
+                <a href="">A link</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
     <div class="container-fluid" ng-view></div>
 
     <script type="text/javascript" src="js/loggingInit.js"></script>
@@ -45,6 +100,8 @@
     <!-- should not be concatenated -->
     <script type="text/javascript" scr="js/vendor.js"></script>
 
-    <link rel="import" href="libs/polymer/polymer.html">
+    <!-- <link rel="import" href="libs/polymer/polymer.html"> -->
+    <link rel="import" href="components/index.html">
+
   </body>
 </html>

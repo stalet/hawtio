@@ -1,0 +1,102 @@
+<link rel="import" href="../helpers/index.html">
+<link rel="import" href="actions.html">
+<link rel="import" href="builder.html">
+
+<script>
+  var MainNav;
+  (function (MainNav) {
+
+      // Class RegistryImpl
+      var RegistryImpl = (function () {
+        function RegistryImpl(root) {
+          this.items = [];
+          this.root = root;
+          /*
+          this.on(MainNav.Actions.ADD, 'log', function (item) {
+            console.log('Adding item with id: ', item.id);
+          });
+          this.on(MainNav.Actions.REMOVE, 'log', function (item) {
+            console.log('Removing item with id: ', item.id);
+          });
+          */
+        }
+        RegistryImpl.prototype.builder = function () {
+          return new MainNav.NavItemBuilderImpl();
+        };
+        RegistryImpl.prototype.add = function (item) {
+          var _this = this;
+          var items = [];
+          for (var _i = 1; _i < arguments.length; _i++) {
+            items[_i - 1] = arguments[_i];
+          }
+          var toAdd = _.union([item], items);
+          this.items = _.union(this.items, toAdd);
+          toAdd.forEach(function (item) { 
+            _this.root.dispatchEvent(new CustomEvent(MainNav.Actions.ADD, { detail: { item: item } })); 
+          });
+          this.root.dispatchEvent(new CustomEvent(MainNav.Actions.CHANGED, { detail: { items: this.items } }));
+          this.root.dispatchEvent(new CustomEvent(MainNav.Actions.REDRAW, { detail: { } }));
+        };
+        RegistryImpl.prototype.remove = function (search) {
+          var _this = this;
+          var removed = _.remove(this.items, search);
+          removed.forEach(function (item) { 
+            _this.root.dispatchEvent(new CustomEvent(MainNav.Actions.REMOVE, { detail: { item: item } })); 
+          });
+          this.root.dispatchEvent(new CustomEvent(MainNav.Actions.CHANGED, { detail: { items: this.items } }));
+          this.root.dispatchEvent(new CustomEvent(MainNav.Actions.REDRAW, { detail: { } }));
+          return removed;
+        };
+        RegistryImpl.prototype.iterate = function (iterator) {
+          this.items.forEach(iterator);
+        };
+        RegistryImpl.prototype.selected = function () {
+          return _.find(this.items, function (item) { return item.isSelected && item.isSelected(); });
+        };
+        RegistryImpl.prototype.on = function (action, key, fn) {
+          var _this = this;
+          switch (action) {
+            case MainNav.Actions.ADD:
+              this.root.addEventListener(MainNav.Actions.ADD, function (event) {
+                //console.log("event key: ", key, " event: ", event);
+                fn(event.detail.item);
+              });
+              if (this.items.length > 0) {
+                this.items.forEach(function(item) {
+                  _this.root.dispatchEvent(new CustomEvent(MainNav.Actions.ADD, { detail: { item: item } })); 
+                });
+              }
+              break;
+            case MainNav.Actions.REMOVE:
+              this.root.addEventListener(MainNav.Actions.REMOVE, function(event) {
+                //console.log("event key: ", key, " event: ", event);
+                fn(event.detail.item);
+              });
+              break;
+            case MainNav.Actions.CHANGED:
+              this.root.addEventListener(MainNav.Actions.CHANGED, function(event) {
+                //console.log("event key: ", key, " event: ", event);
+                fn(event.detail.items);
+              });
+              if (this.items.length > 0) {
+                this.root.dispatchEvent(new CustomEvent(MainNav.Actions.CHANGED, { detail: { items: _this.items } }));
+              }
+              break;
+            case MainNav.Actions.REDRAW:
+              this.root.addEventListener(MainNav.Actions.REDRAW, function(event) {
+                //console.log("event key: ", key, " event: ", event);
+                fn(event.detail);
+              });
+              this.root.dispatchEvent(new CustomEvent(MainNav.Actions.REDRAW, { detail: { } }));
+            default:
+          }
+        };
+        return RegistryImpl;
+      })();
+
+      function createRegistry(root) {
+        return new RegistryImpl(root);
+      }
+      MainNav.createRegistry = createRegistry;
+  })(MainNav || (MainNav = {}));
+</script>

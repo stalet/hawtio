@@ -1,0 +1,39 @@
+<script>
+
+var UrlHelpers;
+(function (UrlHelpers) {
+
+    /**
+     * Joins the supplied strings together using '/', stripping any leading/ending '/'
+     * from the supplied strings if needed, except the first and last string
+     * @returns {string}
+     */
+    function join() {
+        var paths = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            paths[_i - 0] = arguments[_i];
+        }
+        var tmp = [];
+        var length = paths.length - 1;
+        paths.forEach(function (path, index) {
+            if (StringHelpers.isBlank(path)) {
+                return;
+            }
+            if (index !== 0 && path.first(1) === '/') {
+                path = path.slice(1);
+            }
+            if (index !== length && path.last(1) === '/') {
+                path = path.slice(0, path.length - 1);
+            }
+            if (!StringHelpers.isBlank(path)) {
+                tmp.push(path);
+            }
+        });
+        var rc = tmp.join('/');
+        return rc;
+    }
+    UrlHelpers.join = join;
+
+})(UrlHelpers || (UrlHelpers = {}));
+
+</script>

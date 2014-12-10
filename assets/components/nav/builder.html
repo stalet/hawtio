@@ -1,0 +1,92 @@
+<script>
+  (function (MainNav) {
+
+    // Class NavItemBuilderImpl
+    var NavItemBuilderImpl = (function () {
+      function NavItemBuilderImpl() {
+        this.self = { id: '' };
+      }
+      NavItemBuilderImpl.prototype.id = function (id) {
+        this.self.id = id;
+        return this;
+      };
+      NavItemBuilderImpl.prototype.title = function (title) {
+        this.self.title = title;
+        return this;
+      };
+      NavItemBuilderImpl.prototype.page = function (page) {
+        this.self.page = page;
+        return this;
+      };
+      NavItemBuilderImpl.prototype.reload = function (reload) {
+        this.self.reload = reload;
+        return this;
+      };
+      NavItemBuilderImpl.prototype.context = function (context) {
+        this.self.context = context;
+        return this;
+      };
+      NavItemBuilderImpl.prototype.href = function (href) {
+        this.self.href = href;
+        return this;
+      };
+      NavItemBuilderImpl.prototype.click = function (click) {
+        this.self.click = click;
+        return this;
+      };
+      NavItemBuilderImpl.prototype.isSelected = function (isSelected) {
+        this.self.isSelected = isSelected;
+        return this;
+      };
+      NavItemBuilderImpl.prototype.isValid = function (isValid) {
+        this.self.isValid = isValid;
+        return this;
+      };
+      NavItemBuilderImpl.prototype.template = function (template) {
+        this.self.template = template;
+        return this;
+      };
+      NavItemBuilderImpl.prototype.tabs = function (item) {
+        var items = [];
+        for (var _i = 1; _i < arguments.length; _i++) {
+          items[_i - 1] = arguments[_i];
+        }
+        this.self.tabs = _.union(this.self.tabs, [item], items);
+        return this;
+      };
+      NavItemBuilderImpl.prototype.subPath = function (title, path, page, reload, isValid) {
+        var _this = this;
+        if (!this.self.tabs) {
+          this.self.tabs = [];
+        }
+        var tab = {
+          id: '',
+          title: function () { return title; },
+          href: function () { return UrlHelpers.join(_this.self.href(), path); }
+        };
+        if (!_.isUndefined(page)) {
+          tab.page = function () { return page; };
+        }
+        if (!_.isUndefined(reload)) {
+          tab.reload = reload;
+        }
+        if (!_.isUndefined(isValid)) {
+          tab.isValid = isValid;
+        }
+        this.self.tabs.push(tab);
+        return this;
+      };
+      NavItemBuilderImpl.prototype.build = function () {
+        return this.self;
+      };
+      return NavItemBuilderImpl;
+    })();
+    MainNav.NavItemBuilderImpl = NavItemBuilderImpl;
+
+    // Factory functions
+    function createBuilder() {
+      return new NavItemBuilderImpl();
+    }
+    MainNav.createBuilder = createBuilder;
+  })(MainNav || (MainNav = {}));
+</script>

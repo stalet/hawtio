@@ -4,76 +4,15 @@
 /// <reference path="../../helpers/js/tasks.ts"/>
 module MainNav {
 
-  class RegistryImpl implements Registry {
-
-    private items:NavItem[] = [];
-    private addTasks:TaskHelpers.ParameterizedTasks = TaskHelpers.createParameterizedTasks();
-    private removeTasks:TaskHelpers.ParameterizedTasks = TaskHelpers.createParameterizedTasks();
-    private changeTasks:TaskHelpers.ParameterizedTasks = TaskHelpers.createParameterizedTasks();
-
-    public constructor() {
-      if (log.enabledFor(Logger.DEBUG)) {
-        this.on(MainNav.Actions.ADD, 'log', (item) => {
-          log.debug('Adding item with id: ', item.id);
-        });
-        this.on(MainNav.Actions.REMOVE, 'log', (item) => {
-          log.debug('Removing item with id: ', item.id);
-        });
-      }
-    }
-
-    builder():NavItemBuilder {
-      return new NavItemBuilderImpl();
-    }
-
-    add(item:NavItem, ...items:NavItem[]) {
-      var toAdd = _.union([item], items);
-      this.items = _.union(this.items, toAdd);
-      toAdd.forEach((item) => this.addTasks.execute(item));
-      this.changeTasks.execute(this.items);
-    }
-
-    remove(search:(item:NavItem) => boolean):NavItem[] {
-      var removed = _.remove(this.items, search);
-      removed.forEach((item) => this.removeTasks.execute(item)); 
-      this.changeTasks.execute(this.items);
-      return removed;
-    }
-
-    iterate(iterator:(item:NavItem) => void):void {
-      this.items.forEach(iterator);
-    }
-
-    selected():NavItem {
-      return <NavItem> _.find(this.items, (item:NavItem) => item.isSelected && item.isSelected());
-    }
-
-    on(action:string, key:string, fn:(item:any) => void):void {
-      switch(action) {
-        case Actions.ADD:
-          this.addTasks.addTask(key, fn);
-          if (this.items.length > 0) {
-            this.items.forEach(fn)
-          }
-          break;
-        case Actions.REMOVE:
-          this.removeTasks.addTask(key, fn);
-          break;
-        case Actions.CHANGED:
-          this.changeTasks.addTask(key, fn);
-          if (this.items.length > 0) {
-            fn(this.items);
-          }
-          break;
-        default:
-      }
-    }
+  export interface ICreateRegistry{
+    ():Registry;
   }
+  export var createRegistry:ICreateRegistry;
 
-  // used only for testing...
-  export function createRegistry():Registry {
-    return new RegistryImpl();
+  export interface ICreateBuilder {
+    ():NavItemBuilder 
   }
+  export var createBuilder:ICreateBuilder;
 
   // provider so it's possible to get a nav builder in _module.config()
   _module.provider('HawtioNavBuilder', [function HawtioNavBuilderProvider() {
@@ -81,7 +20,7 @@ module MainNav {
       return {};
     }
     this.create = function():NavItemBuilder {
-      return new NavItemBuilderImpl();    
+      return createBuilder();
     }
     function setRoute($routeProvider:ng.route.IRouteProvider, tab:NavItem) {
       log.debug("Setting route: ", tab.href(), " to template URL: " , tab.page());
@@ -109,10 +48,12 @@ module MainNav {
         tab.tabs.forEach((tab) => setRoute($routeProvider, tab));
       }
     }
-  }] );
+  }]);
 
-  _module.factory('HawtioNav', () => {
-    return createRegistry();
-  });
+  _module.factory('HawtioNav', ['$window', ($window) => {
+    var registry = $window.document.querySelector('hawtio-nav').registry;
+    log.debug("Registry: ", registry);
+    return registry;
+  }]);
 
 }

@@ -1,0 +1,70 @@
+<template id="hawtio-nav-item">
+  <li>
+    <a></a>
+  </li>
+</template>
+
+<script>
+  (function(window, document, undefined) {
+    var targetDoc = document;
+    var sourceDoc = (targetDoc.currentScript || targetDoc._currentScript).ownerDocument;
+
+    var template = sourceDoc.querySelector('#hawtio-nav-item');
+    var proto = Object.create(HTMLElement.prototype);
+
+    proto.href = '';
+    proto.onClick = undefined;
+    proto.text = '';
+
+    proto.setHref = function(value) {
+      this.a.href = value;
+    };
+
+    proto.setOnClick = function(value) {
+      this.onClick = value;
+    }
+
+    proto.setText = function(value) {
+      this.a.textContent = value;
+    }
+
+    proto.attributeChangedCallback = function(attr, oldVal, newVal) {
+      console.log("attribute changed: ", attr, " val: ", newVal);
+      switch(attr) {
+        case 'href':
+          this.setHref(newVal);
+        break;
+        case 'onClick':
+          this.setOnClick(newVal);
+        break;
+        case 'text':
+          this.setText(newVal);
+        break;
+      }
+    };
+
+    proto.createdCallback = function() {
+      var _this = this;
+      var root = this.createShadowRoot();
+      var clone = targetDoc.importNode(template.content, true);
+      root.appendChild(clone);
+      this.a = root.querySelector('a');
+      this.a.onclick = function(event) {
+        event.preventDefault();
+        //console.log("clicked ", this, " event: ", event);
+        if (this.href) {
+          history.pushState(undefined, undefined, this.href);
+        }
+        if (_this.onClick) {
+          _this.onClick(event);
+        }
+      }
+    }
+
+    targetDoc.registerElement(template.id, {
+      prototype: proto
+    });
+
+  })(window, document);
+
+</script>

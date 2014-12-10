@@ -1,0 +1,41 @@
+<script>
+  var MainNav;
+  (function (MainNav) {
+    // Actions class with some pre-defined actions 
+    var Actions = (function () {
+      function Actions() {
+      }
+      Object.defineProperty(Actions, "ADD", {
+        get: function () {
+          return 'hawtio-main-nav-add';
+        },
+        enumerable: true,
+        configurable: true
+      });
+      Object.defineProperty(Actions, "REMOVE", {
+        get: function () {
+          return 'hawtio-main-nav-remove';
+        },
+        enumerable: true,
+        configurable: true
+      });
+      Object.defineProperty(Actions, "CHANGED", {
+        get: function () {
+          return 'hawtio-main-nav-change';
+        },
+        enumerable: true,
+        configurable: true
+      });
+      Object.defineProperty(Actions, "REDRAW", {
+        get: function () {
+          return 'hawtio-main-nav-redraw';
+        },
+        enumerable: true,
+        configurable: true
+      });
+      return Actions;
+    })();
+    MainNav.Actions = Actions;
+  })(MainNav || (MainNav = {}));
+
+</script>

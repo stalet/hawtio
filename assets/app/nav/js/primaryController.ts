@@ -46,6 +46,7 @@ module MainNav {
     });
 
     HawtioNav.on(Actions.ADD, 'PrimaryController', (item:NavItem) => {
+      log.debug("Item added: ", item);
       config.nav[item.id] = item;
     });
 
