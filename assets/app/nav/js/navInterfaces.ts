@@ -1,13 +1,13 @@
 /// <reference path="../../baseIncludes.ts"/>
 module MainNav {
 
-  //get function ADD():string { return 'add'; }
-
-  export class Actions {
-    public static get ADD():string { return 'add'; }
-    public static get REMOVE():string { return 'remove'; }
-    public static get CHANGED():string { return 'change'; }
+  export interface IActions {
+    ADD:string;
+    REMOVE:string;
+    CHANGED:string;
   }
+
+  export var Actions:IActions;
 
   export interface Registry {
     builder():NavItemBuilder;

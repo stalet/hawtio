@@ -63,9 +63,9 @@
 
 <script>
 
-  (function(window, document, undefined) {
+  (function(window, targetDoc, undefined) {
     var targetDoc = document;
-    var sourceDoc = (targetDoc.currentScript || targetDoc._currentScript).ownerDocument;
+    var sourceDoc = ComponentHelpers.getSourceDoc(targetDoc);
 
     var navTemplate = sourceDoc.querySelector('#hawtio-nav');
     var navItemTabsTemplate = sourceDoc.querySelector("#hawtio-nav-item-tabs");
@@ -73,25 +73,31 @@
     var proto = Object.create(HTMLElement.prototype);
 
     proto.createdCallback = function() {
+      console.log("element created");
       var _this = this;
-
       var root = this.createShadowRoot();
       var registry = MainNav.createRegistry(root);
       var clone = targetDoc.importNode(navTemplate.content, true);
       root.appendChild(clone);
-
       var primaryNav = root.querySelector('.navbar-primary');
-
       registry.on(MainNav.Actions.REDRAW, 'WebComponent', function() {
+        console.log("redrawing");
+        var children = primaryNav.querySelectorAll('*');
+        console.log("children: ", children);
+        Array.prototype.forEach.call(children, function (child) {
+          child.remove();
+        });
+        //primaryNav.innerHtml = '';
+        /*
         primaryNav.querySelectorAll('*').forEach(function(node) {
           node.remove();
         });
-
+        */
         registry.iterate(function(item) {
           if (item.isValid && !item.isValid()) {
             return;
           }
-          var navItem = document.createElement('hawtio-nav-item');
+          var navItem = targetDoc.createElement('hawtio-nav-item');
           navItem.setHref(item.href());
           navItem.setText(item.title());
           navItem.setOnClick(item.click);

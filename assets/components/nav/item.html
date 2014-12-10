@@ -1,3 +1,5 @@
+<link rel="import" href="../helpers/index.html">
+
 <template id="hawtio-nav-item">
   <li>
     <a></a>
@@ -6,8 +8,7 @@
 
 <script>
   (function(window, document, undefined) {
-    var targetDoc = document;
-    var sourceDoc = (targetDoc.currentScript || targetDoc._currentScript).ownerDocument;
+    var sourceDoc = ComponentHelpers.getSourceDoc(document);
 
     var template = sourceDoc.querySelector('#hawtio-nav-item');
     var proto = Object.create(HTMLElement.prototype);
@@ -46,7 +47,7 @@
     proto.createdCallback = function() {
       var _this = this;
       var root = this.createShadowRoot();
-      var clone = targetDoc.importNode(template.content, true);
+      var clone = document.importNode(template.content, true);
       root.appendChild(clone);
       this.a = root.querySelector('a');
       this.a.onclick = function(event) {
@@ -61,7 +62,7 @@
       }
     }
 
-    targetDoc.registerElement(template.id, {
+    document.registerElement(template.id, {
       prototype: proto
     });
 

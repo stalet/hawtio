@@ -1,4 +1,5 @@
 <script>
+  var MainNav;
   (function (MainNav) {
 
     // Class NavItemBuilderImpl
@@ -84,9 +85,8 @@
     MainNav.NavItemBuilderImpl = NavItemBuilderImpl;
 
     // Factory functions
-    function createBuilder() {
-      return new NavItemBuilderImpl();
+    MainNav.createBuilder = function() {
+      return new MainNav.NavItemBuilderImpl();
     }
-    MainNav.createBuilder = createBuilder;
   })(MainNav || (MainNav = {}));
 </script>

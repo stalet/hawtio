@@ -19,9 +19,11 @@ module MainNav {
     this.$get = function() {
       return {};
     }
-    this.create = function():NavItemBuilder {
-      return createBuilder();
+    this.create = function () {
+      log.debug("MainNav:", MainNav);
+      return MainNav.createBuilder();  
     }
+
     function setRoute($routeProvider:ng.route.IRouteProvider, tab:NavItem) {
       log.debug("Setting route: ", tab.href(), " to template URL: " , tab.page());
       var config:any = {

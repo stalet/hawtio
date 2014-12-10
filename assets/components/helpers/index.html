@@ -2,7 +2,6 @@
 
 var UrlHelpers;
 (function (UrlHelpers) {
-
     /**
      * Joins the supplied strings together using '/', stripping any leading/ending '/'
      * from the supplied strings if needed, except the first and last string
@@ -35,5 +34,31 @@ var UrlHelpers;
     UrlHelpers.join = join;
 
 })(UrlHelpers || (UrlHelpers = {}));
+
+var ComponentHelpers;
+(function (ComponentHelpers) {
+
+  ComponentHelpers.unwrap = function(document) {
+    if (window.unwrap) {
+      return unwrap(document);
+    } else {
+      return document;
+    }
+  }
+
+  ComponentHelpers.wrap = function(document) {
+    if (window.wrap) {
+      return wrap(document);
+    } else {
+      return document;
+    }
+  }
+
+  function getSourceDoc(document) {
+    return (document._currentScript || document.currentScript).ownerDocument;
+  }
+  ComponentHelpers.getSourceDoc = getSourceDoc;
+
+})(ComponentHelpers || (ComponentHelpers = {}));
 
 </script>

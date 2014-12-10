@@ -18,13 +18,9 @@ module Core {
   hawtioPluginLoader.addModule(Core.pluginName);
 
   // bootstrap the app
-  $(() => {
-    var doc = angular.element(document);
-    Core.injector = angular.bootstrap(doc, hawtioPluginLoader.getModules());
+  window.addEventListener('HTMLImportsLoaded', () => {
+    Core.injector = angular.bootstrap((<any>window).wrap(document), hawtioPluginLoader.getModules());
     Logger.get(Core.pluginName).debug("Bootstrapped application, injector: ", Core.injector);
-    var docEl = angular.element(document.documentElement);
-    docEl.attr('xmlns:ng', "http://angularjs.org");
-    docEl.attr('ng-app', Core.pluginName);
   });
 
 

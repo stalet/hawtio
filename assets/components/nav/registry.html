@@ -84,10 +84,13 @@
               break;
             case MainNav.Actions.REDRAW:
               this.root.addEventListener(MainNav.Actions.REDRAW, function(event) {
-                //console.log("event key: ", key, " event: ", event);
-                fn(event.detail);
+                fn(event);
               });
-              this.root.dispatchEvent(new CustomEvent(MainNav.Actions.REDRAW, { detail: { } }));
+              // TODO this should be just the dispatchEvent call below
+              var event = new CustomEvent(MainNav.Actions.REDRAW, { detail: { text: 'foo'} });
+              setTimeout(function() { fn(event); });
+              //this.root.dispatchEvent(event);
+              break;
             default:
           }
         };
