@@ -97,6 +97,8 @@ public class JmxTreeWatcher implements JmxTreeWatcherMBean {
         return new NotificationListener() {
             @Override
             public void handleNotification(Notification notification, Object handback) {
+                LOG.warn("JMX notification: {}", notification);
+
                 // TODO should we filter only types "JMX.mbean.registered" and "JMX.mbean.unregistered"?
                 counter.incrementAndGet();
             }

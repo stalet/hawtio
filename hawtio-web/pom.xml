@@ -15,6 +15,9 @@
   <properties>
     <!-- when not doing a release lets use a dummy version number to test out the replacement in the manifest.json -->
     <chrome-version>1.0.1</chrome-version>
+
+    <!-- TODO: enable for trying with ActiveMQ 5.11.0 release -->
+    <!--<activemq-version>5.11.0</activemq-version>-->
     <!--
     <phantomjs-executable>/usr/local/bin/phantomjs</phantomjs-executable>
     -->
