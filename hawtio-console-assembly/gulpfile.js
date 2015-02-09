@@ -109,16 +109,18 @@ gulp.task('watch', ['build'], function() {
 
 
 gulp.task('connect', ['watch'], function() {
-  /*
-   * Example of fetching a URL from the environment, in this case for kubernetes
+
+  // lets disable unauthorised TLS issues with kube REST API
+  process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+
   var kube = uri(process.env.KUBERNETES_MASTER || 'http://localhost:8080');
   console.log("Connecting to Kubernetes on: " + kube);
-  */
+  var logger = require('js-logger');
 
   hawtio.setConfig({
+    logLevel: logger.DEBUG,
     port: 2772,
     staticProxies: [
-    /*  
     // proxy to a service, in this case kubernetes
     {
       proto: kube.protocol(),
@@ -135,7 +137,6 @@ gulp.task('connect', ['watch'], function() {
       path: '/jolokia',
       targetPath: '/hawtio/jolokia'
     }
-    */
     ],
     staticAssets: [{
       path: '/',
@@ -147,9 +148,6 @@ gulp.task('connect', ['watch'], function() {
       enabled: true
     }
   });
-  /*
-   * Example middleware that returns a 404 for templates
-   * as they're already embedded in the js
   hawtio.use('/', function(req, res, next) {
           var path = req.originalUrl;
           // avoid returning these files, they should get pulled from js
@@ -158,11 +156,10 @@ gulp.task('connect', ['watch'], function() {
             res.statusCode = 404;
             res.end();
           } else {
-            console.log("allowing: ", path);
+            //console.log("allowing: ", path);
             next();
           }
         });
-        */
   hawtio.listen(function(server) {
     var host = server.address().address;
     var port = server.address().port;
