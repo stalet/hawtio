@@ -113,8 +113,14 @@
 
   <body>
     <nav class="navbar navbar-default navbar-fixed-top navbar-pf" role="navigation">
+      <div class="navbar-header">
+        <a class="navbar-brand"><img src="img/hawtio_logo.svg"></a>
+      </div>
+      <ul class="nav navbar-nav navbar-utility">
+        <li><a href="">test</a></li>
+      </ul>
       <ul class="nav navbar-nav navbar-primary" hawtio-main-nav></ul>
-      <ul class="nav navbar-nav" hawtio-sub-tabs></ul>
+      <ul class="nav navbar-nav navbar-persistent" hawtio-sub-tabs></ul>
     </nav>
 
     <div id="main" class="container-fluid ng-cloak" ng-controller="HawtioNav.ViewController">
