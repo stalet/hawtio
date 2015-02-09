@@ -122,7 +122,9 @@ Yes!
 
 *My plugin needs to talk to some other thing too, how does that happen?*
 
-Easiest thing to do is use a proxy:
+Use [hawtio-node-backend](https://www.npmjs.com/package/hawtio-node-backend) to proxy requests
+
+Or hand-configure a proxy:
 
 * run `npm install --save-dev proxy-middleware`
 * add this code to your gulpfile at the beginning:
@@ -165,6 +167,20 @@ You can just blow away `libs` and run `bower update` to re-install dependencies 
 *A bower dependency I want to install doesn't have `main` configured at all, what do I do?*
 
 Typically for these cases it's best to run `bower install` (don't add `--save`) on the package to get the files, then copy the .js or .css files into your packages `dist` directory, then configure those js and css files in your package's `bower.json` file in the `main` attribute.  That way any package that depends on your code will get the dependent javascript automatically wired into their index.html.
+
+*How do I work on multiple components at once?*
+
+There's a couple options, you can use `bower link` which sets up a soft-link under libs/ to the dependent component.  However this can mess up typescript compilation.
+
+A better option is to soft-link the `dist/hawtio-*.js` (or whatever the built javascript file is) directly.  Then you can `gulp watch` in the dependency and `gulp` in your main project and live reload will kick in whenever you change code in either.  The same approach is handy for .css files.  Then when you `bower update` after releasing the dependency the soft-link will be replaced with the updated file
+
+*How do I enable debug logging at runtime?*
+
+After the page is loaded, open up the javascript console and paste:
+
+```
+localStorage['logLevel'] = angular.toJson(Logger.DEBUG);
+```
 
 
 ### Releasing
