@@ -26,7 +26,8 @@
     "hawtio-core-perspective": "~2.0.0",
     "hawtio-jmx": "~2.0.23",
     "hawtio-wiki": "~2.0.14",
-    "hawtio-kubernetes": "~2.0.0"
+    "hawtio-kubernetes": "~2.0.0",
+    "hawtio-extension-service": "~2.0.0"
   },
   "devDependencies": {
     "bootstrap": "~3.3.1",
