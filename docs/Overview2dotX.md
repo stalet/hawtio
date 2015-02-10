@@ -106,6 +106,14 @@ To get going just start the build:
 
 which will build the typescript (if applicable) and start up a web server listening on localhost:2772.  Open this in your browser and you should see a nav bar with 'Example' in it, which is the example plugin.
 
+### IDE Tips
+
+If you use [Intellij](https://www.jetbrains.com/idea/) or [WebStorm](https://www.jetbrains.com/webstorm/) as your IDE for working on the project then you get nice smart completion, refactoring and navigation between function calls and their source etc.
+
+One thing that really helps when navigating from a function call to its implementation source is to exclude the **d.ts** folder of your project. This folder contains the generated TypeScript API definition files; so there's not much value in there from a navigation/completeness perspective when noodling the code.
+
+So open File -> Project Structure then in the Modules tab select the d.ts folder and click the **Excluded** button. Then if you alt-click on a function call it will take you directly to the TypeScript/JavaScript source code of the implementation (and not prompt you to choose between the .ts and .d.ts files)
+
 ### FAQ
 
 *My typescript code fails to compile with missing definitions for 'ng' etc...*
