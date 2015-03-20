@@ -32,6 +32,7 @@ Here's a rundown of the current hawtio 2.x components:
 * [hawtio-ui](https://github.com/hawtio/hawtio-ui) - The UI widgets from hawtio 1.x, including hawtio-simple-table and the editor plugin
 * [hawtio-forms](https://github.com/hawtio/hawtio-forms) - The forms plugin from hawtio 1.x, used to create forms from a simple schema
 * [hawtio-jmx](https://github.com/hawtio/hawtio-jmx) - The JMX and JVM plugins from hawtio 1.x as well as the tree plugin.  Now contains all jolokia initialization code as well as the Core.Workspace object service from hawtio 1.x.  Will likely be a dependency for any plugin that talks to jolokia
+* [hawtio-oauth](https://github.com/hawtio/hawtio-oauth) - Provides authentication for OAuth using [OpenShift](http://openshift.github.io/) and [KeyCloak](http://keycloak.jboss.org/)
 * [hawtio-wiki](https://github.com/hawtio/hawtio-wiki) - Provides a git based wiki
 * [hawtio-kubernetes](https://github.com/hawtio/hawtio-kubernetes) - The plugin for working with [Kubernetes](http://kubernetes.io/)
 * [hawtio-forge](https://github.com/hawtio/hawtio-forge) - The [JBoss Forge](http://forge.jboss.org/) plugin for hawtio so it can view and create projects and execute forge commands
