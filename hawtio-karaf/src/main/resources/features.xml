@@ -17,6 +17,7 @@
   <feature name="hawtio" version="${project.version}" resolver="(obr)">
     <details>Installs the main hawtio war file, an MBean helper for OSGi and an MBean helper to get JSON Schema out of Java objects</details>
     <feature>hawtio-core</feature>
+    <feature>hawtio-log</feature>
     <feature>hawtio-karaf-terminal</feature>
     <feature>hawtio-maven-indexer</feature>
   </feature>
@@ -24,7 +25,16 @@
   <feature name="hawtio-offline" version="${project.version}" resolver="(obr)">
     <details>Installs hawtio in offline mode (without Maven service which requires internet connection)</details>
     <feature>hawtio-core</feature>
+    <feature>hawtio-log</feature>
     <feature>hawtio-karaf-terminal</feature>
+  </feature>
+
+  <feature name="hawtio-log" version="${project.version}" resolver="(obr)">
+    <details>Installs the hawtio Log service</details>
+    <bundle dependency='true'>mvn:com.fasterxml.jackson.core/jackson-core/${jackson-version}</bundle>
+    <bundle dependency='true'>mvn:com.fasterxml.jackson.core/jackson-databind/${jackson-version}</bundle>
+    <bundle dependency='true'>mvn:com.fasterxml.jackson.core/jackson-annotations/${jackson-version}</bundle>
+    <bundle>mvn:io.hawt/hawtio-log-insight/${project.version}</bundle>
   </feature>
 
   <feature name="hawtio-maven-indexer" version="${project.version}" resolver="(obr)">
