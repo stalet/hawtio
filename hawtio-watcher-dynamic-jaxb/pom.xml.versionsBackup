@@ -3,13 +3,13 @@
   <parent>
     <groupId>io.hawt</groupId>
     <artifactId>project</artifactId>
-    <version>2.0.1-STALET</version>
+    <version>1.5-SNAPSHOT</version>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
-  <artifactId>hawtio-watcher-blueprint-web</artifactId>
+  <artifactId>hawtio-watcher-dynamic-jaxb</artifactId>
   <name>${project.artifactId}</name>
-  <description>hawtio :: watcher-blueprint-web</description>
+  <description>hawtio :: File Watcher Dyanamic JAXB</description>
 
   <properties>
   </properties>
@@ -23,22 +23,34 @@
     </dependency>
     <dependency>
       <groupId>io.hawt</groupId>
-      <artifactId>hawtio-git</artifactId>
+      <artifactId>hawtio-core</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.hawt</groupId>
+      <artifactId>hawtio-json-schema-mbean</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>io.fabric8</groupId>
-      <artifactId>watcher-blueprint-web</artifactId>
+      <artifactId>watcher-dynamic-jaxb</artifactId>
       <version>${fabric-version}</version>
-      <scope>compile</scope>
     </dependency>
-    <!-- explicitly add transitive dependencies to avoid fuse's provided scope issue -->
+    <!-- transitive dependencies of file-dynamic-jaxb that must not be provided scope -->
     <dependency>
       <groupId>io.fabric8</groupId>
       <artifactId>watcher-core</artifactId>
       <version>${fabric-version}</version>
       <scope>compile</scope>
     </dependency>
+    <!-- for some reason this is test scope in cxf-api! :) -->
+    <dependency>
+        <groupId>com.sun.xml.bind</groupId>
+        <artifactId>jaxb-xjc</artifactId>
+        <version>${jaxb-version}</version>
+        <scope>compile</scope>
+    </dependency>
+
 
     <!-- testing -->
     <dependency>
@@ -57,6 +69,18 @@
       <groupId>log4j</groupId>
       <artifactId>log4j</artifactId>
       <version>${log4j-version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.aries.blueprint</groupId>
+      <artifactId>org.apache.aries.blueprint.web</artifactId>
+      <version>${blueprint-web-version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.hawt</groupId>
+      <artifactId>hawtio-dozer</artifactId>
+      <version>${project.version}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
